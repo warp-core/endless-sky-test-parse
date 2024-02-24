@@ -1,0 +1,36 @@
+name: 'Endless Sky Test Parse'
+description: 'An Action to test parse data for https://github.com/endless-sky/endless-sky'
+inputs:
+  repository:
+    description: 'The repository, usually a plugin, to test parse.'
+    required: true
+    default: ${{ github.repository }}
+  token:
+    description: 'The token to use.'
+    required: true
+    default: ${{ github.token }}
+runs:
+  using: "composite"
+  steps:
+    - name: Download and extract latest continuous
+      env:
+        CONTINUOUS: EndlessSky-win64-continuous.zip
+        GH_TOKEN: ${{ inputs.token }}
+      run: |
+        gh release download -R endless-sky/endless-sky continuous -p ${{ env.CONTINUOUS }}
+        Expand-Archive ${{ env.CONTINUOUS }} -DestinationPath endless-sky -Force
+      shell: PowerShell
+    - name: Prepare folder structure
+      run: |
+        cd .\endless-sky
+        mkdir plugins
+        cd .\plugins
+        mkdir plugin
+      shell: PowerShell
+    - uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.repository }}
+        path: '.\endless-sky\plugins\plugin'
+    - name: Test parse datafiles
+      run: "'.\\endless-sky\\Endless Sky.exe' -p"
+      shell: bash
