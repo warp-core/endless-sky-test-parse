@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  test-parse-world-forge:
+    name: Data Files
+    runs-on: windows-2022
+    steps:
+    - uses: warp-core/endless-sky-test-parse@master
+      with:
+        repository: EndlessSkyCommunity/world-forge
