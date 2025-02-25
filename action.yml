@@ -5,6 +5,10 @@ inputs:
     description: 'The repository, usually a plugin, to test parse.'
     required: true
     default: ${{ github.repository }}
+  parse-assets:
+    description: 'Whether or not to check images and sounds.'
+    required: false
+    default: false
   token:
     description: 'The token to use.'
     required: true
@@ -32,5 +36,10 @@ runs:
         repository: ${{ inputs.repository }}
         path: '.\endless-sky\plugins\plugin'
     - name: Test parse datafiles
+      if: ${{ inputs.parse-assets == 'false' }}
       run: "'.\\endless-sky\\Endless Sky.exe' -d -p"
+      shell: bash
+    - name: Test parse all assets
+      if: ${{ inputs.parse-assets == 'true' }}
+      run: "'.\\endless-sky\\Endless Sky.exe' -d --parse-assets"
       shell: bash
