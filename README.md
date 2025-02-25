@@ -9,6 +9,9 @@ An Action to test parse data for https://github.com/endless-sky/endless-sky
     # The repository to test parse. Usually a pluging for Endless Sky.
     # Default: ${{ github.repository }}
     repository:
+	# Whether or not to test assets (images and sounds) in addition to data files.
+	# Defaults: false
+	parse-assets:
     # The token to use to checkout the repository.
     # Default: ${{ github.token }}
     token:
