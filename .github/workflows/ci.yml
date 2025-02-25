@@ -17,6 +17,27 @@ jobs:
     name: Data Files
     runs-on: windows-2025
     steps:
-    - uses: warp-core/endless-sky-test-parse@master
+    - name: Checkout this repository
+      uses: actions/checkout@v4
+      with:
+        path: test-parse-action
+        clean: true
+    - name: Run this action
+      uses: ./test-parse-action
       with:
         repository: EndlessSkyCommunity/world-forge
+
+  test-parse-high-dpi:
+    name: High DPI Assets
+    runs-on: windows-2025
+    steps:
+    - name: Checkout this repository
+      uses: actions/checkout@v4
+      with:
+        path: test-parse-action
+        clean: true
+    - name: Run this action
+      uses: ./test-parse-action
+      with:
+        repository: endless-sky/endless-sky-high-dpi
+        parse-assets: true
