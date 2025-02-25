@@ -6,7 +6,7 @@ An Action to test parse data for https://github.com/endless-sky/endless-sky
 ```yaml
 - uses: warp-core/endless-sky-test-parse@master
   with:
-    # The repository to test parse. Usually a pluging for Endless Sky.
+    # The repository to test parse. Usually a plugin for Endless Sky.
     # Default: ${{ github.repository }}
     repository:
 	# Whether or not to test assets (images and sounds) in addition to data files.
