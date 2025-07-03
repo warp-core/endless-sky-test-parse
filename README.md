@@ -15,6 +15,9 @@ An Action to test parse data for https://github.com/endless-sky/endless-sky
     # The token to use to checkout the repository.
     # Default: ${{ github.token }}
     token:
+	# The name of the tag of the release of Endless Sky to test against. Such as "v0.10.13.1".
+	# Default: continuous
+	es-version:
 ```
 
 ## Example
@@ -41,6 +44,7 @@ jobs:
     - uses: warp-core/endless-sky-test-parse@master
       with:
         repository: EndlessSkyCommunity/world-forge
+		es-version: v0.10.14
 ```
 
 If this action is running within the repository to test parse, no parameters are necessary:

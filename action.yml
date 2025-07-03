@@ -13,16 +13,21 @@ inputs:
     description: 'The token to use.'
     required: false
     default: ${{ github.token }}
+  es-version:
+    description: 'The name of the tag of the release of Endless Sky to test against. Such as "v0.10.13.1".'
+    required: false
+    default: continuous
 runs:
   using: "composite"
   steps:
     - name: Download and extract latest continuous
       env:
-        CONTINUOUS: EndlessSky-win64-continuous.zip
+        ES_PACKAGE: endless-sky.zip
         GH_TOKEN: ${{ inputs.token }}
+        RELEASE_TAG: ${{ inputs.es-version }}
       run: |
-        gh release download -R endless-sky/endless-sky continuous -p ${{ env.CONTINUOUS }}
-        Expand-Archive ${{ env.CONTINUOUS }} -DestinationPath endless-sky -Force
+        gh release download -R endless-sky/endless-sky ${{ env.RELEASE_TAG }} -p '*win64*' -O ${{ env.ES_PACKAGE }}
+        Expand-Archive ${{ env.ES_PACKAGE }} -DestinationPath endless-sky -Force
       shell: PowerShell
     - name: Prepare folder structure
       run: |
