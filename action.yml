@@ -3,7 +3,7 @@ description: 'An Action to test parse data for https://github.com/endless-sky/en
 inputs:
   repository:
     description: 'The repository, usually a plugin, to test parse.'
-    required: true
+    required: false
     default: ${{ github.repository }}
   parse-assets:
     description: 'Whether or not to check images and sounds.'
@@ -11,7 +11,7 @@ inputs:
     default: false
   token:
     description: 'The token to use.'
-    required: true
+    required: false
     default: ${{ github.token }}
 runs:
   using: "composite"
